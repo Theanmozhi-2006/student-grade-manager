@@ -1,3 +1,4 @@
+import json
 students = {}
 
 def add_student(name, mark):
@@ -19,10 +20,25 @@ def class_average():
     print(sum(students.values())/len(students))
 
 
+def save_data():
+    with open("students.json", "w") as f:
+        json.dump(students, f)
+
+def load_data():
+    global students
+    try:
+        with open("students.json", "r") as f:
+            students = json.load(f)
+    except:
+        students = {}
+
 def menu():
+
+    load_data()
     while True:
         print("\n--- Student Grade Manager ---")
         print("1. Add Student")
+        save_data()
         print("2. View All Students")
         print("3. Highest Scorer")
         print("4. Lowest Scorer")
